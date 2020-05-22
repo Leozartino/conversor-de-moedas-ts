@@ -1,0 +1,16 @@
+.app {
+  max-width: 900px;
+  margin: auto;
+  background: linear-gradient(to right, red, purple);
+  border-radius: 35px;
+}
+
+.linha {
+  display: flex;
+  margin-top: 40px;
+  justify-content: space-around;
+}
+
+h1 {
+  text-align: center;
+}
