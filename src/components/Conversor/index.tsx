@@ -6,12 +6,18 @@ interface ConversorProps {
   moedaB: string;
 }
 
+interface jsonDTO {
+  TypeA_TypeB: {
+    val: number;
+  };
+}
+
 const Conversor: React.FC<ConversorProps> = ({
   moedaA,
   moedaB,
 }: ConversorProps) => {
-  const [moedaInput, setMoedasInput] = useState<string>();
-  const [moedaOutput, setMoedasOutput] = useState<number>();
+  const [moedaInput, setMoedasInput] = useState<string>("");
+  const [moedaOutput, setMoedasOutput] = useState<string>();
 
   function converteMoeda() {
     let tipoMoeda = `${moedaA}_${moedaB}`;
@@ -22,10 +28,13 @@ const Conversor: React.FC<ConversorProps> = ({
       .then((response) => {
         return response.json();
       })
-      .then((json) => {
-        const cotacao = json[tipoMoeda].val;
+      .then((json: jsonDTO) => {
+        const cotacao: number = json.TypeA_TypeB.val;
+        const valorMoedaNumerico: number = parseFloat(moedaInput);
 
-        const moedaConvertida = Number(moedaInput) * cotacao;
+        const moedaConvertida: string = (valorMoedaNumerico * cotacao).toFixed(
+          2
+        );
 
         setMoedasOutput(moedaConvertida);
       });
